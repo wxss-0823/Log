@@ -1,2 +1,2 @@
-# WorkLog
-This is a repository to record my work content.
+# Log
+This is a repository to record log files.
