@@ -1,0 +1,24 @@
+/*
+B3N41N78 测试值44~58dBc
+N41，N78 底噪影响特殊杂散不合格
+1920 MHz ～ 1980   MHz 	0.21   73
+2010 MHz ～ 2025   MHz 	0.31   78
+2320 MHz ～ 2370   MHz 	0.15   55@2.369.36GHz
+2400 MHz ～ 2483.5 MHz 	0.17   54
+*/
+
+
+set_power_control_enable 0
+carr_inactivate 2
+carr_inactivate 3
+carr_cfg 2 0 2 100 1 2565 2565 24 5 1 0.7 0.7 6 4 4
+carr_cfg 2 1 2 20 1 2645 2645 24 5 1 0.7 0.7 6 4 4
+carr_cfg 3 0 2 100 1 3450 3450 24 5 1 0.7 0.7 6 4 4
+carr_activate 2
+carr_activate 3
+set_power_control_enable 1
+set_pa_mode 0 2 1 
+set_pa_mode 0 3 1
+
+
+
