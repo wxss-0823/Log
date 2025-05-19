@@ -52,15 +52,18 @@ function getPushApp () {
 
 function chooseOperation () {
 	attemptTimes=5
+	errorflag=0
 	echo "-----------------------------------------------------------------"
 	echo "Please choose the operation: 1 -> getPullDir; 2 -> getPushApp"
 	read -p "Print q/quit/exit to exit: " mode
 	echo "-----------------------------------------------------------------"
 	for i in `seq $attemptTimes`
 	do
-		if [ $i -gt 1 ]; then
+		if [ $i -gt 1 -a $errorflag -ne 1 ]; then
 			read -p "Please choose the next operation:" mode
 		fi
+
+		errorflag=0
 
 		if [ $mode == 1 ]; then
 			getPullDir $homepath
@@ -76,7 +79,8 @@ function chooseOperation () {
 			break
 
 		else
-			read -p "Please input the correct value: [1] or [2]" mode
+			read -p "Please input the correct value([1] or [2]): " mode
+			errorflag=1
 		fi
 	done
 
