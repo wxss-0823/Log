@@ -130,9 +130,19 @@ $$
 \eta_{doherty} = \pi/4 \cdot (2v_{in}/v_{inm}) \\
 where \ \ 0 < v_{in} < v_{inm}/2
 $$
-​	在大信号阶段，Doherty 结构的整体效率为：
+​	在大信号阶段，功放输出的最大电流与输出电压有关：
+$$
+I_{m} = I_{max}/2 \cdot  v_{in}/v_{vim}
+$$
+​	功放输出功率为：
+$$
+P_{out} = I_{m} \cdot v_{in}/v_{inm} \cdot {V_{dc}}
+$$
+​	因此，Doherty 结构的整体效率为：
 $$
 \eta_{doherty} = \pi/2 \cdot (v_{in}/v_{inm})^2/(3v_{in}/v_{inm}-1) \times 100 \% \\
 where \ \ v_{min}/2 < v_{in} < v_{inm}
 $$
-​	因此，Doherty 功放的效率曲线存在两个顶点，分别是功率饱和点和功率回退 6 dB 点，而在这两个顶点之间效率有所下降，因为峰值功放刚开启时效率降低，拉低了整体的效率性能。在相同输出功率下，Doherty 功放的效率要比 B 类放大器的效率高。
+​	如下图，Doherty 功放的效率曲线存在两个顶点，分别是功率饱和点和功率回退 3 dB 点，而在这两个顶点之间效率有所下降，因为峰值功放刚开启时效率降低，拉低了整体的效率性能。在相同输出功率下，Doherty 功放的效率要比 B 类放大器的效率高。
+
+![Doherty Effectivity Curve](./Assets/Doherty-EffectivityCurve.jpg)
