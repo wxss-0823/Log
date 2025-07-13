@@ -6,7 +6,7 @@ name="Ethernet"
 addr="127.0.0.1"
 mask="255.255.255.0"
 gateway=""
-workMode="n"
+workMode="a"
 cmdPrefix="Script> "
 command=""
 printPrefixCmd="read -p "$cmdPrefix" command"
@@ -76,8 +76,13 @@ do
 	Optional parameter: 
 	    Subnet Mask : [0~255].[0~255].[0~255].[0~255]
 	    Gateway     : [0~255].[0~255].[0~255].[0~255]
+		
+	Lite Mode:
+	    Enter "lite" to entry Lite Mode.
+		Command will use default parameters.
+		Only need to enter IPv4 address.
 	e.g. 
-	cmd Ethernet a 192.168.10.123 255.255.255.0 192.168.10.1
+	cmd Ethernet a 127.0.0.1 255.255.255.0
 	EOF
 	command=""
 	continue
@@ -86,7 +91,13 @@ do
 	# Command String Process
 	operationArray=(${command})
 	arrayLen=${#operationArray[@]}
-	if [ $arrayLen -lt 4 -a $arrayLen -gt 0 ]
+	
+	# Lite Mode
+	if [ "${operationArray[0]}" == "lite" ]
+	then
+		echo "Please Enter IPv4 Address."
+		read -p "LiteMode> " addr
+	elif [ $arrayLen -lt 4 -a $arrayLen -gt 0 ]
 	then
 		echo "Make sure to enter all the required parameter."
 		command=""
@@ -94,7 +105,7 @@ do
 	elif [ $arrayLen == 0 ]
 	then
 		continue
-	elif [ ${operationArray[0]} == "cmd" ]
+	elif [ "${operationArray[0]}" == "cmd" ]
 	then
 		name=${operationArray[1]}
 		workMode=${operationArray[2]}
@@ -162,10 +173,10 @@ do
 	result=`$MSCmd`
 	if [ "$result" == "" ]
 	then
-		echo -e "Script Run Successfully.\nCommand: $MSCmd"
+		echo "IP Address Added Successfully!"
 		command=""
 	else
-		echo "Ternimal Info: $result"
+		echo -e "Ternimal Info: $result\nCommand: $MSCmd"
 	fi
 
 done
