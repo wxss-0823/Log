@@ -1,4 +1,0 @@
-netsh interface ip set address name="本地连接" source=static addr=192.168.0.110 mask=255.255.255.0
-
-
-netsh interface ip set address name="本地" source=static addr=192.168.0.110 mask=255.255.255.0

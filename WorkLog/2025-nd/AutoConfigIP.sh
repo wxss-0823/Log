@@ -1,8 +1,8 @@
 NEO_ESC=`echo -ne "\033"`
-COMMAND_CACHE=(cmd 本地连接 a 192.168.10.123)
+COMMAND_CACHE=(cmd Ethernet a 192.168.10.123)
 
 # Default parameter
-name="Local Connection"
+name="Ethernet"
 addr="127.0.0.1"
 mask="255.255.255.0"
 gateway=""
@@ -18,7 +18,7 @@ cat <<- EOF
 Automatically IP added Script 
 ===================================
 EOF
-echo "Print "help" for more information."
+echo 'Print "help" for more information.'
 
 # Main Loop
 while true
@@ -74,10 +74,10 @@ do
 	    Work mode	: Add[a], Delete[d] or Set[s]
 	    IP address	: Ethernet IPv4
 	Optional parameter: 
-	    Mask address: [0~255].[0~255].[0~255].[0~255]
-	    Gateway		: [0~255].[0~255].[0~255].[0~255]
+	    Subnet Mask : [0~255].[0~255].[0~255].[0~255]
+	    Gateway     : [0~255].[0~255].[0~255].[0~255]
 	e.g. 
-	cmd 本地连接 a 192.168.10.123 255.255.255.0 192.168.10.1
+	cmd Ethernet a 192.168.10.123 255.255.255.0 192.168.10.1
 	EOF
 	command=""
 	continue
@@ -108,16 +108,18 @@ do
 	fi
 	
 	# Check Work Mode Input Format
-	MSGeneralCmd="netsh interface ipv4 mode address $name static $addr $mask $gateway"
+	MSGeneralCmd="netsh interface ipv4 mode address $name"
+	MSCmdSuffix=" $addr $mask $gateway"
+	SetMode=" staic"
 	case $workMode in
 		"a")
-			MSCmd=${MSGeneralCmd/mode/add}
+			MSCmd=${MSGeneralCmd/mode/add}$MSCmdSuffix
 			;;
 		"d")
-			MSCmd=${MSGeneralCmd/[mode]/delete}
+			MSCmd=${MSGeneralCmd/mode/delete}$MSCmdSuffix
 			;;
 		"s")
-			MSCmd=${MSGeneralCmd/[mode]/set}
+			MSCmd=${MSGeneralCmd/mode/set}$SetMode$MSCmdSuffix
 			;;
 		*)
 			echo -e "Please input correct work mode prompt.\nWork mode: Add[a], Delete[d] or Set[s]"
@@ -128,7 +130,7 @@ do
 	# Regular Expression Match IP address
 	IPpattern="^([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
 	
-	# Check IPv4 Address & Mask Format
+	# Check IPv4 Address & Subnet Mask Format
 	if ! [[ "$addr" =~ $IPpattern ]]
 	then
 		echo "Please check IPv4 address format: $addr =~ [0~255].[0~255].[0~255].[0~255]"
@@ -157,8 +159,13 @@ do
 	fi
 	
 	# Execute the Command
-	$MSCmd
-	
-	echo -e "Script Run Successfully!\nCommand: $MSCmd"
-	command=""
+	result=`$MSCmd`
+	if [ "$result" == "" ]
+	then
+		echo -e "Script Run Successfully.\nCommand: $MSCmd"
+		command=""
+	else
+		echo "Ternimal Info: $result"
+	fi
+
 done
