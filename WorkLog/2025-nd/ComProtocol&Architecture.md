@@ -72,7 +72,9 @@ $$
 
 ## 四、TETRA
 
+### 4.1. 定义
 
+​	TETRA（Terrestrial Trunked Radio，地面集群无线电）
 
 
 
@@ -193,7 +195,7 @@ graph LR;
     direction RL;
     subgraph FPGA Rx RF
     	T44(Rx JESD)  						-->			T43(LPF);
-      T43(LPF) -- 122.88 MHz --> T42(Down-sampling & HPF);
+      T43(LPF) -- 491.52 MHz --> T42(Down-sampling & HPF);
       T42(Down-sampling) 				--> 		T41(LPF);
     end
     subgraph FPGA Rx Low-PHY
