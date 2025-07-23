@@ -74,7 +74,73 @@ $$
 
 ### 4.1. 定义
 
-​	TETRA（Terrestrial Trunked Radio，地面集群无线电）
+​	TETRA（Terrestrial Trunked Radio，地面集群无线电）是一个由 ETSI 技术协会提出的欧洲标准。其采用 $\pi/4-DQPSK$（Differential Quaternary Phase-Shift Keying，差分正交相移键控）和滚降系数为 0.35 平方根升余弦调制滤波器，调制速率（码元速率）为 36 kbit/s 。
+
+​	工作在 DMO（Direct Mode Operation）模式下，一种可能的参考架构如下：
+
+```mermaid
+graph LR;
+	a1((1)) --> b1(BLOCK<br>ENCODER) --> a2((2)) --> b2(CONVOLUTIONAL<br>ENCODER) --> a3((3)) --> b3(RE-ORDERER AND<br>INTERLEAVER) --> a4((4)) --> b4(SCRAMBLER) --> a5((5))
+	a55((5)) --> b5(LOGICAL CHANNEL<br>MULTIPLEXER) --> a6((6)) --> b6(BURST BUILDER) --> a7((7)) --> b7(DIFFERENTIAL<br>ENCODER) --> a8((8)) --> b8(MODULATOR) --> b9(TRANSMITTER)
+```
+
+​	其中，1：信息比特（发送）；2：块编码比特；3：卷积编码比特；4：重排序和交织的比特；5：加扰的比特；6：多路复用的比特；7：调制的比特；8：贴纸的码元。
+
+### 4.2. 调制（Modulation）
+
+​	下面的指标应用于下行基带信号。调试方式使用 $\pi/4-DQPSK$ ，调制速率（码元速率）为 36 kbit/s 。
+
+#### 4.2.1. 调制符号定义
+
+​	B(m) 提供了需要发送的比特序列，其中 m 表示比特索引。调制比特序列应当被映射于调制符号序列 S(k) ，其中 k 对应于符号索引。
+
+​	调制符号 S(k) 应当从一个差分编码中得出，
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
