@@ -92,31 +92,73 @@ graph LR;
 
 #### 4.2.1. 调制符号定义
 
-​	B(m) 提供了需要发送的比特序列，其中 m 表示比特索引。调制比特序列应当被映射于调制符号序列 S(k) ，其中 k 对应于符号索引。
+​	$B(m)$ 提供了需要发送的比特序列，其中 m 表示比特索引。调制比特序列应当被映射于调制符号序列 $S(k)$ ，其中 k 对应于符号索引。
 
-​	调制符号 S(k) 应当从一个差分编码中得出，
+​	调制符号 $S(k)$ 应当从一个差分编码中得出，这意味着，$S(k)$ 应当由上一个调制符号 $S(k-1)$ 施加一个相位变换 $D_{\phi}(k)$ 得出。因此，用复数表示：
+$$
+S(k) = S(k-1)exp(jD_{\phi}(k)) \\
+S(0) = 1
+$$
+​	符号 $S(0)$ 位于第一个载波的第一个符号之前，应当作为相位参考传输。相位变换 $D_{\phi}(k)$ 应当与调制比特有关。
 
+| $B(2k-1)$ | $B(2k)$ | $D_{\phi}(k)$ |
+| :-------: | :-----: | :-----------: |
+|     1     |    1    |   $-3\pi/4$   |
+|     0     |    1    |   $+3\pi/4$   |
+|     0     |    0    |   $+\pi/4$    |
+|     1     |    0    |   $-\pi/4$    |
 
+​	复数调制符号 $S(k)$ 应当具有 $exp(j\ n\pi/4)$ 的八种相位之一，当 k 为偶数时，n = 2, 4, 6, 8；当 k 为奇数时，n = 1, 3, 5, 7。此种调制符号的星座图及其不同符号间可能的转变如下图：
 
+<img src="./Assets/TETRA-Modulation-Constellation.png" width="400px">
 
+#### 4.2.2. 调制后符号定义
 
+​	经过调制的信号，载波频率为 $f_c$ ，应该为：
+$$
+M(t) = Re\{s(t)exp(j(2\pi f_ct + \phi_0))\}
+$$
+​	其中：
 
+- $\phi_0$ 是一个任意的相位；
 
+- $s(t)$ 是经过调制的信号的复数包络，定义为：
+  $$
+  s(t) = \sum_{k=0}^KS(k)g(t-t_K)
+  $$
 
+  - K 是最大符号数；
 
+  - T 是符号周期；
 
+  - $t_{K} = kT$ 是对应于 $S(k)$ 的符号时间；
 
+  - g(t) 是一个理想符号波形，由平方根升余弦频谱 G(f) （定义如下）作傅里叶逆变换获得：
+    $$
+    \begin{flalign*}
+    
+    &G(f) = 1 \qquad \qquad \qquad \qquad \qquad \qquad  \qquad \qquad \quad \ \ for \qquad \qquad  |f| \le (1-\alpha) / 2T \\
+    &G(f) = \sqrt{0.5(1-sin(\pi(2|f|T-1)/2\alpha))} \qquad \qquad  for \qquad \qquad (1-\alpha)/2T \le |f| \le (1+\alpha)/2T \\
+    &G(f) = 0 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad \ \ for \qquad \qquad |f| \ge（1+\alpha)/2T &
+    
+    \end{flalign*}
+    $$
+    
+    - 其中，$\alpha$ 是滚降系数，在给定符号速率后用于确定发射带宽。$\alpha$ 的值应当为 0.35 。在特定实现下，设计基于特定调精度和给定的相邻信道衰减，可能需要为 $g(t)$ 加时限窗。
+  
 
+#### 4.2.3. 调制滤波器定义
 
+​	调制滤波器应当具有线性相位，并且其幅频响应应为 $|H(f)|=G(f)$ 。
 
+#### 4.2.4. 调制模块图
 
+​	调制过程的模块图如下所示，下图仅做解释目的，并不规定具体的实现方式。理想情况下，受狄拉克冲激函数 $S(k)\delta(t-t_K)$ 激励的调制滤波器具有冲激响应 $g(t)$ 。
 
-
-
-
-
-
-
+```mermaid
+graph LR;
+	A1(("$$B(m)$$")) --> B1(phase<br>transition<br>generation) --> A2(("$$D_{\phi}(k)$$")) --> B2(modulation<br>symbol<br>generation) --> A3(("$$S(k)\delta(t-t_K)$$")) --> B3(modulation<br>filter) --> A4(("$$s(t))$$")) --> B4(frequency<br>translation) --> A5(("$$M(t)$$"))
+```
 
 
 
