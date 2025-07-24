@@ -139,7 +139,7 @@ $$
     
     &G(f) = 1 \qquad \qquad \qquad \qquad \qquad \qquad  \qquad \qquad \quad \ \ for \qquad \qquad  |f| \le (1-\alpha) / 2T \\
     &G(f) = \sqrt{0.5(1-sin(\pi(2|f|T-1)/2\alpha))} \qquad \qquad  for \qquad \qquad (1-\alpha)/2T \le |f| \le (1+\alpha)/2T \\
-    &G(f) = 0 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad \ \ for \qquad \qquad |f| \ge（1+\alpha)/2T &
+    &G(f) = 0 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad \ \ for \qquad \qquad |f| \ge(1+\alpha)/2T &
     
     \end{flalign*}
     $$
@@ -151,6 +151,8 @@ $$
 
 ​	调制滤波器应当具有线性相位，并且其幅频响应应为 $|H(f)|=G(f)$ 。
 
+![TETRA Root-raised Cosine Filter](./Assets/TETRA-RootRaisedCosineFilter.png)
+
 #### 4.2.4. 调制模块图
 
 ​	调制过程的模块图如下所示，下图仅做解释目的，并不规定具体的实现方式。理想情况下，受狄拉克冲激函数 $S(k)\delta(t-t_K)$ 激励的调制滤波器具有冲激响应 $g(t)$ 。
@@ -160,7 +162,9 @@ graph LR;
 	A1(("$$B(m)$$")) --> B1(phase<br>transition<br>generation) --> A2(("$$D_{\phi}(k)$$")) --> B2(modulation<br>symbol<br>generation) --> A3(("$$S(k)\delta(t-t_K)$$")) --> B3(modulation<br>filter) --> A4(("$$s(t))$$")) --> B4(frequency<br>translation) --> A5(("$$M(t)$$"))
 ```
 
+### 4.3. 无线电发射与接收
 
+​	
 
 
 
