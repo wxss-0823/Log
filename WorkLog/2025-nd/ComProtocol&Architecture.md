@@ -696,14 +696,14 @@ NOTE：符号 SN0 的符号时间与上一个时隙的符号 SN255 的符号时�
 
 ​	DNB 的调制比特分配应当与下表一致。一旦同步信息成功传输控制或业务信息至其他移动台，当前移动台应当使用 DNB 。
 
-| Bit Number<br />(BN) | Field Length<br />(bits) |      Field content       |   Field bits number    |
-| :------------------: | :----------------------: | :----------------------: | :--------------------: |
-|       1 to 12        |            12            |         preamble         | j1 to j12 or k1 to k12 |
-|       13 to 14       |            2             |  phase adjustment bits   |       hk1 to hk2       |
-|      15 to 230       |           216            |  scrambled block 1 bits  |  bkn1(1) to bkn1(216)  |
-|      231 to 252      |            22            | normal training sequence | n1 to n22 or p1 to p22 |
-|      253 to 468      |           216            |  scrambled block 2 bits  |  bkn2(1) to bkn2(216)  |
-|      469 to 470      |            2             |        tail bits         |        t1 to t2        |
+| Bit Number<br>(BN) | Field Length<br>(bits) |      Field content       |   Field bits number    |
+| :----------------: | :--------------------: | :----------------------: | :--------------------: |
+|      1 to 12       |           12           |         preamble         | j1 to j12 or k1 to k12 |
+|      13 to 14      |           2            |  phase adjustment bits   |       hk1 to hk2       |
+|     15 to 230      |          216           |  scrambled block 1 bits  |  bkn1(1) to bkn1(216)  |
+|     231 to 252     |           22           | normal training sequence | n1 to n22 or p1 to p22 |
+|     253 to 468     |          216           |  scrambled block 2 bits  |  bkn2(1) to bkn2(216)  |
+|     469 to 470     |           2            |        tail bits         |        t1 to t2        |
 
 ###### DM Linerization Burst（DLB）
 
@@ -713,15 +713,15 @@ NOTE：符号 SN0 的符号时间与上一个时隙的符号 SN255 的符号时�
 
 ​	DSB 所有调制的比特的分配应当与下表一致。DSB 应当参与 DM 通信用于移动台间的同步。
 
-| Bit Number<br />(BN) | Field Length<br />(bits) |             Field Content              |   Field Bits Number   |
-| :------------------: | :----------------------: | :------------------------------------: | :-------------------: |
-|       1 to 12        |            12            |                preamble                |       l1 to l12       |
-|       13 to 14       |            2             |         phase adjustment bits          |      hl1 to hl2       |
-|       15 to 94       |            80            |          frequency correction          |       f1 to f80       |
-|      95 to 214       |           120            | scrambled synchronization block 1 bits |   sb(1) to sb(120)    |
-|      215 to 252      |            38            |    sychronization traning sequence     |       y1 to y38       |
-|      253 to 468      |           216            |         scrambled block 2 bits         | bkn2(1) to  bkn2(216) |
-|      469 to 470      |            2             |               tail bits                |       t1 to t2        |
+| Bit Number<br/>(BN) | Field Length<br/>(bits) |             Field Content              |   Field Bits Number   |
+| :-----------------: | :---------------------: | :------------------------------------: | :-------------------: |
+|       1 to 12       |           12            |                preamble                |       l1 to l12       |
+|      13 to 14       |            2            |         phase adjustment bits          |      hl1 to hl2       |
+|      15 to 94       |           80            |          frequency correction          |       f1 to f80       |
+|      95 to 214      |           120           | scrambled synchronization block 1 bits |   sb(1) to sb(120)    |
+|     215 to 252      |           38            |    sychronization traning sequence     |       y1 to y38       |
+|     253 to 468      |           216           |         scrambled block 2 bits         | bkn2(1) to  bkn2(216) |
+|     469 to 470      |            2            |               tail bits                |       t1 to t2        |
 
 ##### 突发域
 
