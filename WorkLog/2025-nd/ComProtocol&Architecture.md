@@ -74,7 +74,7 @@ $$
 
 ### 4.1. 定义
 
-​	TETRA（Terrestrial Trunked Radio，地面集群无线电）是一个由 ETSI 技术协会提出的欧洲标准。其采用 $\pi/4-DQPSK$（Differential Quaternary Phase-Shift Keying，差分正交相移键控）和滚降系数为 0.35 平方根升余弦调制滤波器，调制速率（码元速率）为 36 kbit/s 。
+​	TETRA（Terrestrial Trunked Radio，地面集群无线电）是一个由 ETSI 技术协会提出的欧洲标准。其采用 $\pi/4-DQPSK$（Differential Quaternary Phase-Shift Keying，差分正交相移键控）和滚降系数为 0.35 平方根升余弦调制滤波器，调制速率（比特速率）为 36 kbit/s 。
 
 ​	工作在 DMO（Direct Mode Operation）模式下，一种可能的参考架构如下：
 
@@ -88,7 +88,7 @@ graph LR;
 
 ### 4.2. 调制（Modulation）
 
-​	下面的指标应用于下行基带信号。调试方式使用 $\pi/4-DQPSK$ ，调制速率（码元速率）为 36 kbit/s 。
+​	下面的指标应用于下行基带信号。调试方式使用 $\pi/4-DQPSK$ ，调制速率（比特速率）为 36 kbit/s 。
 
 #### 4.2.1. 调制符号定义
 
