@@ -1,0 +1,95 @@
+ir_kill
+
+#内部源指令（目前为30M指令，需要更新成10M指令）
+write_fpgareg 0xda4 0
+write_fpgareg 0xda5 0
+write_fpgareg 0xd80 9
+write_fpgareg 0xd85 9
+write_fpgareg 0xda0 1
+write_fpgareg 0xda1 1
+set_axc_info_index 0 0 0 7
+set_axc_dl_num 0 0 8 0
+set_axc_info_index 1 0 0 7
+set_axc_dl_num 1 0 8 8
+write_fpgareg 0xda0 0
+write_fpgareg 0xda1 0
+write_fpgareg 0xda4 1
+write_fpgareg 0xda5 1
+write_fpgareg 0x105 1
+write_fpgareg 0x110 0x0
+write_fpgareg 0x570 9
+write_fpgareg 0x573 9
+write_fpgareg 0x1c0 9
+write_fpgareg 0x1c3 9
+write_fpgareg 0x100 0
+msleep 1000
+write_fpgareg 0x100 0xffff
+write_fpgareg 0xd70  0
+
+write_fpgareg 0x114 2
+write_fpgareg 0x110 0x20
+
+cat trace.log |grep "rx_current"
+###########################################
+查看驻波，隔离度（30M配置）
+set_power_control_enable 0
+carr_inactivate 0
+carr_inactivate 1
+carr_cfg 0 0 3 30 0 788 733 44.2 140 140
+carr_cfg 1 0 3 30 0 788 733 44.2 140 140
+carr_activate 0
+carr_activate 1
+
+AdrvSetClgcEnable 0 1 0
+AdrvSetClgcEnable 0 2 0
+AdrvSetTrackCalsEnable 0 0x300000 1
+
+#读取外部时延校准是否正常   fifoDelay值需要在±1以内  externalPathDelaDelay值需要在±1以内
+AdrvGetExternalPathDelay 0 1
+AdrvGetExternalPathDelay 0 2
+AdrvGetClgcExternalPathDelay 0 1
+AdrvGetClgcExternalPathDelay 0 2
+
+如果异常说明RX TX FB连线有问题，或功放链路异常，或数字板TX FB链路异常，或功放没取电流。
+
+#通道0前向功率 （看反馈功率clgcOrxRmsPower: -inf dBFS）
+write_fpgareg 0x5c 0
+AdrvSetTxToOrxMapping 0 0x20 1
+AdrvGetClgcStatus 0 1
+
+#通道1前向功率
+write_fpgareg 0x5c 1
+AdrvSetTxToOrxMapping 0 0x10 2
+AdrvGetClgcStatus 0 2
+
+#通道0反向功率 （看反馈功率clgcOrxRmsPower: -inf dBFS）
+write_fpgareg 0x5c 4
+AdrvSetTxToOrxMapping 0 0x20 1
+AdrvGetClgcStatus 0 1
+
+#通道1反向功率
+write_fpgareg 0x5c 5
+AdrvSetTxToOrxMapping 0 0x10 2
+AdrvGetClgcStatus 0 2
+
+读取前反向功率差应该为15dB，下限10，否则驻波有问题，检查外部连线，内部连线
+
+#观察隔离度ch0
+write_fpgareg 0x140 0x1fff
+write_fpgareg 0x143 0x1fff
+
+write_fpgareg 0x140 0
+write_fpgareg 0x5c 0
+AdrvSetTxToOrxMapping 0 0x20 1
+AdrvGetClgcStatus 0 1
+
+#观察隔离度ch1
+write_fpgareg 0x140 0x1fff
+write_fpgareg 0x143 0x1fff
+
+write_fpgareg 0x143 0
+write_fpgareg 0x5c 1
+AdrvSetTxToOrxMapping 0 0x10 2
+AdrvGetClgcStatus 0 2
+
+如果隔离度异常，整机内部连线异常，或者数字板隔离度异常。

@@ -1,0 +1,4 @@
+tftp [ip] -gr [file]
+tftp [ip] -pr [file]
+
+dow file

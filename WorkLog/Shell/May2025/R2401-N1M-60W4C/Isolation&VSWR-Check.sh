@@ -1,29 +1,32 @@
 #############################################################################
-# ps²é¿´½ø³Ì£¬³öÏÖÏÂÃæ½ø³Ì£¬ËµÃ÷µ¥°åÆô¶¯Íê±Ï
+# psæŸ¥çœ‹è¿›ç¨‹ï¼Œå‡ºç°ä¸‹é¢è¿›ç¨‹ï¼Œè¯´æ˜å•æ¿å¯åŠ¨å®Œæ¯•
 # {ir_monitor.sh} /bin/sh /app/ir/scripts/ir_monitor.sh
 #############################################################################
 
 #############################################################################
-# 1.¸üĞÂ³ÌĞò
-½«R2401-N1M-60W4C_R_FLASH_V1.00.012.txzÎÄ¼ş·ÅÈë/mnt/flash/upgradeÀïÃæ
-Ö®ºó¸´Î»
+# 1.æ›´æ–°ç¨‹åº
+å°†R2401-N1M-60W4C_R_FLASH_V1.00.012.txzæ–‡ä»¶æ”¾å…¥/mnt/flash/upgradeé‡Œé¢
+ä¹‹åå¤ä½
 
-# 2.¼ÓÔØeeprom
-³ÌĞòÉÏµçÍê³Éºó£¬¼ÓÔØÏÂÃæÁ½¸öEEPROMÎÄ¼ş
+# 2.åŠ è½½eeprom
+ç¨‹åºä¸Šç”µå®Œæˆåï¼ŒåŠ è½½ä¸‹é¢ä¸¤ä¸ªEEPROMæ–‡ä»¶
 cd /app/metadata/eeprom/
 ./R2401_EEPROM_VGS_20250420.sh 
 ./R2401_EEPROM_normal_cfg_20250425.sh 
-Ö´ĞĞÍê±Ïºó¸´Î»
+æ‰§è¡Œå®Œæ¯•åå¤ä½
 
-# 3.È¡¹¦·Å¾²Á÷£¬È¡Íê¸´Î» £¨×¢ÒâÑ¯ÎÊÊÇ·ñ»»ÁËÇı¶¯£©
-ĞÂÇı¶¯£¬Ö÷¹Ü110mA£¬·å20mA
-È¡Íê¾²Á÷¸´Î»
+read_eepromreg 0x5a0
+read_eepromreg 0xf00
+
+# 3.å–åŠŸæ”¾é™æµï¼Œå–å®Œå¤ä½ ï¼ˆæ³¨æ„è¯¢é—®æ˜¯å¦æ¢äº†é©±åŠ¨ï¼‰
+æ–°é©±åŠ¨ï¼Œä¸»ç®¡110mAï¼Œå³°20mA
+å–å®Œé™æµå¤ä½
 #############################################################################
 
 #############################################################################
-# 4.·¢ÄÚ²¿Ô´£¬¿´¸ôÀë¶È
-# ·¢ÄÚ²¿Ô´
-write_fpgareg 0xda4 0
+# 4.å‘å†…éƒ¨æºï¼Œçœ‹éš”ç¦»åº¦
+# å‘å†…éƒ¨æº
+write_fpgareg 0xda4 0 
 write_fpgareg 0xda5 0
 write_fpgareg 0xda6 0
 write_fpgareg 0xda7 0
@@ -69,16 +72,16 @@ write_fpgareg 0x114 16
 write_fpgareg 0x110 0x20
 write_fpgareg 0x153 0xf
 
-# ÅäÖÃÔØ²¨
+# é…ç½®è½½æ³¢
 set_power_control_enable 0
 carr_inactivate 0
 carr_inactivate 1
 carr_inactivate 2
 carr_inactivate 3
-carr_cfg 0 0 3 10 0 2160 1970 47.8
-carr_cfg 1 0 3 10 0 2160 1970 47.8
-carr_cfg 2 0 3 10 0 2160 1970 47.8
-carr_cfg 3 0 3 10 0 2160 1970 47.8
+carr_cfg 0 0 3 10 0 2160 1970 42.8
+carr_cfg 1 0 3 10 0 2160 1970 42.8
+carr_cfg 2 0 3 10 0 2160 1970 42.8
+carr_cfg 3 0 3 10 0 2160 1970 42.8
 carr_activate 0
 carr_activate 1
 carr_activate 2
@@ -96,94 +99,93 @@ AdrvSetTrackCalsEnable 0 0xf00000 1
 #############################################################################
 # procedure
 ######################################################
-# Ç°Ïò¹¦ÂÊÒ»°ã¶¼Îª-18dbfs
+# å‰å‘åŠŸç‡ä¸€èˆ¬éƒ½ä¸º-18dbfs
 ######################################################
-# Í¨µÀ0Ç°Ïò¹¦ÂÊ £¨¿´·´À¡¹¦ÂÊclgcOrxRmsPower: -inf dBFS£©
+# é€šé“0å‰å‘åŠŸç‡ ï¼ˆçœ‹åé¦ˆåŠŸç‡clgcOrxRmsPower: -inf dBFSï¼‰
 write_fpgareg 0x5c 0
 AdrvSetTxToOrxMapping 0 0x10 1
-AdrvGetClgcStatus 0 1   
+AdrvGetClgcStatus 0 1
 
-# Í¨µÀ1Ç°Ïò¹¦ÂÊ
+# é€šé“1å‰å‘åŠŸç‡
 write_fpgareg 0x5c 1
 AdrvSetTxToOrxMapping 0 0x10 2
 AdrvGetClgcStatus 0 2   
 
-# Í¨µÀ2Ç°Ïò¹¦ÂÊ
-write_fpgareg 0x5c 0
+# é€šé“2å‰å‘åŠŸç‡
+write_fpgareg 0x5c 2
 AdrvSetTxToOrxMapping 0 0x40 4
 AdrvGetClgcStatus 0 4  
 
-# Í¨µÀ3Ç°Ïò¹¦ÂÊ
+# é€šé“3å‰å‘åŠŸç‡
 write_fpgareg 0x5c 1
 AdrvSetTxToOrxMapping 0 0x40 8
 AdrvGetClgcStatus 0 8  
 ######################################################
 
 ######################################################
-# ·´Ïò¹¦ÂÊÒ»°ã±ÈÇ°ÏòĞ¡13dbfsÒÔÉÏ
+# åå‘åŠŸç‡ä¸€èˆ¬æ¯”å‰å‘å°13dbfsä»¥ä¸Š
 ######################################################
-# Í¨µÀ0·´Ïò¹¦ÂÊ £¨¿´·´À¡¹¦ÂÊclgcOrxRmsPower: -inf dBFS£©
+# é€šé“0åå‘åŠŸç‡ ï¼ˆçœ‹åé¦ˆåŠŸç‡clgcOrxRmsPower: -inf dBFSï¼‰
 write_fpgareg 0x5c 4
 AdrvSetTxToOrxMapping 0 0x10 1
 AdrvGetClgcStatus 0 1   
 
-# Í¨µÀ1·´Ïò¹¦ÂÊ
+# é€šé“1åå‘åŠŸç‡
 write_fpgareg 0x5c 5
 AdrvSetTxToOrxMapping 0 0x10 2
 AdrvGetClgcStatus 0 2   
 
-# Í¨µÀ2·´Ïò¹¦ÂÊ
+# é€šé“2åå‘åŠŸç‡
 write_fpgareg 0x5c 4
 AdrvSetTxToOrxMapping 0 0x40 4
 AdrvGetClgcStatus 0 4  
 
-# Í¨µÀ3·´Ïò¹¦ÂÊ
-
+# é€šé“3åå‘åŠŸç‡
 write_fpgareg 0x5c 5
 AdrvSetTxToOrxMapping 0 0x40 8
 AdrvGetClgcStatus 0 8  
 
 ######################################################
-# Ç°Ïò¹¦ÂÊ²î¼´Îª¸ôÀë¶È£¬¸ôÀë¶ÈÓ¦¸ÃÓĞ50dBÒÔÉÏ
+# å‰å‘åŠŸç‡å·®å³ä¸ºéš”ç¦»åº¦ï¼Œéš”ç¦»åº¦åº”è¯¥æœ‰50dBä»¥ä¸Š
 ######################################################
-# ¹Û²ì¸ôÀë¶È CH0
-write_fpgareg 0x140 0x1fff
-write_fpgareg 0x143 0x1fff
-write_fpgareg 0x146 0x1fff
-write_fpgareg 0x149 0x1fff
+# è§‚å¯Ÿéš”ç¦»åº¦ CH0
+write_fpgareg 0x140 0x1200
+write_fpgareg 0x143 0x1200
+write_fpgareg 0x146 0x1200
+write_fpgareg 0x149 0x1200
 
 write_fpgareg 0x140 0
 write_fpgareg 0x5c 0
 AdrvSetTxToOrxMapping 0 0x10 1
 AdrvGetClgcStatus 0 1
 
-# ¹Û²ì¸ôÀë¶È CH1
-write_fpgareg 0x140 0x1fff
-write_fpgareg 0x143 0x1fff
-write_fpgareg 0x146 0x1fff
-write_fpgareg 0x149 0x1fff
+# è§‚å¯Ÿéš”ç¦»åº¦ CH1
+write_fpgareg 0x140 0x1200
+write_fpgareg 0x143 0x1200
+write_fpgareg 0x146 0x1200
+write_fpgareg 0x149 0x1200
 
 write_fpgareg 0x143 0
 write_fpgareg 0x5c 1
 AdrvSetTxToOrxMapping 0 0x10 2
 AdrvGetClgcStatus 0 2
 
-# ¹Û²ì¸ôÀë¶È CH2
-write_fpgareg 0x140 0x1fff
-write_fpgareg 0x143 0x1fff
-write_fpgareg 0x146 0x1fff
-write_fpgareg 0x149 0x1fff
+# è§‚å¯Ÿéš”ç¦»åº¦ CH2
+write_fpgareg 0x140 0x1200
+write_fpgareg 0x143 0x1200
+write_fpgareg 0x146 0x1200
+write_fpgareg 0x149 0x1200
 
 write_fpgareg 0x146 0
 write_fpgareg 0x5c 0
 AdrvSetTxToOrxMapping 0 0x40 4
 AdrvGetClgcStatus 0 4
 
-# ¹Û²ì¸ôÀë¶È CH3
-write_fpgareg 0x140 0x1fff
-write_fpgareg 0x143 0x1fff
-write_fpgareg 0x146 0x1fff
-write_fpgareg 0x149 0x1fff
+# è§‚å¯Ÿéš”ç¦»åº¦ CH3
+write_fpgareg 0x140 0x1200
+write_fpgareg 0x143 0x1200
+write_fpgareg 0x146 0x1200
+write_fpgareg 0x149 0x1200
 
 write_fpgareg 0x149 0
 write_fpgareg 0x5c 1
@@ -194,31 +196,52 @@ AdrvGetClgcStatus 0 8
 
 #############################################################################
 # dpdStatus.dpdStatistics.dpdDirectEvm: 0.00 % 
-# ¹Ø×¢Õâ¸ö²ÎÊı£¬Ó¦¸ÃÎª 0 % ~ 1.2 % ËãÓÅ£¬1.2 % ~ 2 % ËãÕı³£ 2 % ÒÔÉÏËµÃ÷Õû»ú´æÔÚÆäËûĞ¹Â¶
+# å…³æ³¨è¿™ä¸ªå‚æ•°ï¼Œåº”è¯¥ä¸º 0 % ~ 1.2 % ç®—ä¼˜ï¼Œ1.2 % ~ 2 % ç®—æ­£å¸¸ 2 % ä»¥ä¸Šè¯´æ˜æ•´æœºå­˜åœ¨å…¶ä»–æ³„éœ²
 #############################################################################
-# 5.·¢ÄÚ²¿Ô´£¬¿´ DPD ×´Ì¬
-set_tx_gain_delta 0 5000
-set_tx_gain_delta 1 5000
-set_tx_gain_delta 2 5000
-set_tx_gain_delta 3 5000
+# 5.å‘å†…éƒ¨æºï¼Œçœ‹ DPD çŠ¶æ€
+set_tx_analog_att 0 5000
+set_tx_analog_att 1 5000
+set_tx_analog_att 2 5000
+set_tx_analog_att 3 5000
 set_power_control_enable 0
 carr_inactivate 0
 carr_inactivate 1
 carr_inactivate 2
 carr_inactivate 3
-carr_cfg 0 0 3 10 0 2160 1970 47.8
-carr_cfg 1 0 3 10 0 2160 1970 47.8
-carr_cfg 2 0 3 10 0 2160 1970 47.8
-carr_cfg 3 0 3 10 0 2160 1970 47.8
+carr_cfg 0 0 3 10 0 2160 1970 47
+carr_cfg 1 0 3 10 0 2160 1970 47
+carr_cfg 2 0 3 10 0 2160 1970 47
+carr_cfg 3 0 3 10 0 2160 1970 47
 carr_activate 0
 carr_activate 1
 carr_activate 2
 carr_activate 3
 set_power_control_enable 1
 
-# ¶ÁÈ¡ 4 ¸öÍ¨µÀ DPD ×´Ì¬
- AdrvGetDpdStatus 0 1
- AdrvGetDpdStatus 0 2
- AdrvGetDpdStatus 0 4
- AdrvGetDpdStatus 0 8
- #############################################################################
+# è¯»å– 4 ä¸ªé€šé“ DPD çŠ¶æ€
+AdrvGetDpdStatus 0 1
+AdrvGetDpdStatus 0 2
+AdrvGetDpdStatus 0 4
+AdrvGetDpdStatus 0 8
+#############################################################################
+
+
+
+set_power_control_enable 0
+carr_inactivate 0
+carr_inactivate 1
+carr_inactivate 2
+carr_inactivate 3
+carr_cfg 0 0 3 10 0 2160 1970 47
+carr_activate 0
+set_power_control_enable 1
+
+
+set_power_control_enable 0
+carr_inactivate 0
+carr_inactivate 1
+carr_inactivate 2
+carr_inactivate 3
+carr_cfg 2 0 3 10 0 2160 1970 47
+carr_activate 2
+set_power_control_enable 1
