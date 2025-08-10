@@ -114,7 +114,7 @@ function LiteModeMainLoop() {
 		
 		# Input Message check
 		# IP Address Check
-		IPPatternCheck $addr $IPpatter
+		IPPatternCheck $addr $IPpattern
 		if [ $? == 1 ]; then
 			# Not Match
 			liteCmd=""
@@ -168,7 +168,7 @@ function WorkModeChecked() {
 function SubnetGatewayPatternChecked() {
 	# First parameter is subnet address or gateway
 	# Second parameter is IP pattern
-	if [ "$1" != "" ] && $(! [[ "$1" =~ $2 ]]); then
+	if [ "$1" != "" ] && $(! [[ "$1" =~ $2 ]] ); then
 		echo "Please check $3 format: $1 =~ [0~255].[0~255].[0~255].[0~255]"
 		return 1
 	fi
@@ -278,6 +278,9 @@ do
 			fi
 			
 			# Check Subnet Mask Address Pattern
+			if [ "$mask" == "" ]; then
+				read -p "The subnet mask shall be input: " mask
+			fi
 			SubnetGatewayPatternChecked $mask $IPpattern "Subnet Mask Address"
 			if [ $? == 1  ]; then
 				# Not Match
@@ -286,6 +289,9 @@ do
 			fi
 			
 			# Check Gateway Pattern
+			if [ "$gateway" == "" ]; then
+				read -p "The gateway shall be input: " gateway
+			fi
 			SubnetGatewayPatternChecked $gateway $IPpattern "Gateway"
 			if [ $? == 1 ]; then
 				# Not Match
