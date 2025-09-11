@@ -1,0 +1,166 @@
+
+所有测试开始之前需要进行前置操作
+############第一步：
+窗口1输入
+phc_ctl sjptp0 set `date "+%s"`
+sp.sh -k
+
+sp.sh -L1D
+
+ps -eocomm,etimes|grep oamProcess|awk '{print $2}'
+
+############第二步：
+窗口1输入
+5G频率配置 
+【Bw30M】
+//B TX:773MHz RX:718MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 154600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 143600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 154570
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+//M TX:780.5MHz RX:725.5MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 156100
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 145100
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 156010
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+//T TX:788MHz RX:733MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 157600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 146600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 157690
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+【Bw20M】
+//B TX:768MHz RX:713MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 153600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 142600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 153630
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+//M TX:780.5MHz RX:725.5MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 156100
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 145100
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 156010
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+//T TX:793MHz RX:738MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 158600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 147600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 158690
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+//TX:773MHz RX:718MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 154600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 143600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 154570
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+【Bw10M】
+//B TX:763MHz RX:708MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 152600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 141600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 152690
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+//M TX:780.5MHz RX:725.5MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 156100
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 145100
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 156010
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+//T TX:798MHz RX:743MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 159600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 148600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 159630
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+//TX:773MHz RX:718MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 154600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 143600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.SsbFrequency 154570
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+
+TX:783MHz RX:728MHza
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 156600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 145600
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 10
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 156510
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 48
+
+
+
+############第三步：
+窗口2输入
+cd /opt/fdd_l1d/ASTELLA_PHY_Package_LA1224RDB_BSP2.1_VSPA_DUMode_MUMode_u0_3cc_OranRach_v0.1.3/bin
+./start_bbu.sh
+直到开始打印PHY process wait 10s ,MAC process not ready 时，可以进行下一步
+*该窗口下之后配置ctrl +c 即为停物理层，正常步骤，不需要停物理层*
+
+############第四步：
+窗口3输入
+cd /opt/fdd_l1d/ASTELLA_PHY_Package_LA1224RDB_BSP2.1_VSPA_DUMode_MUMode_u0_3cc_OranRach_v0.1.3/support/NR_L1D_FAPI3.2
+
+根据需要，只能选择其中一个用例执行：
+【Bw30M 20M 10M下行测试】
+./start_l1d_demoBS_cell0.sh TM3.1a_FDD_15K_Bw30M
+./start_l1d_demoBS_cell0.sh TM3.1a_FDD_15K_Bw20M
+./start_l1d_demoBS_cell0.sh TM3.1a_FDD_15K_Bw10M
+
+
+执行完毕后，等待该窗口打印SendStartReq: PHY is running 表示配置完成
+
+若是选择上行用例，执行完毕后，再在此窗口敲击crcon 查看上行解调结果
+
+#复制信号
+打开新窗口
+fpga32 wr 2104 0
+
+############第五步：
+窗口1输入
+
+//5G时延
+fpga32 wr 84e 8aea
+fpga32 wr 800 8aea
+fpga32 wr 84d 80004d31
+fpga32 wr 84b 0
+fpga32 wr 84b 1
+fpga32 wr 84b 0
+
+
+//配置为外置光口1
+fpga32 wr 2105 0
+fpga32 wr 2320 0
+fpga32 wr 210a 4
+fpga32 wr 210b 5
+fpga32 wr 210c 6
+fpga32 wr 210d 7
+fpga32 wr 2321 00000000
+fpga32 wr 2326 07060504
+
+*该窗口下之后配置ctrl +c 之后quit 即为停L1D，正常步骤，不需要停L1D*
+

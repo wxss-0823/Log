@@ -1,0 +1,68 @@
+set_power_control_enable 0
+
+AdrvSetTrackCalsEnable 0 0x333313 0
+AdrvResetDpd 0 1 1
+AdrvResetDpd 0 2 1
+AdrvSetClgcEnable 0 1 0
+AdrvSetClgcEnable 0 2 0
+AdrvSetTrackCalsEnable 0 0x300000 1
+
+CH0 OPD
+write_fpgareg 0x5c 0
+AdrvSetTxToOrxMapping 0 0x10 1
+AdrvGetClgcStatus 0 1
+
+
+CH0 RPD
+write_fpgareg 0x5c 4
+AdrvSetTxToOrxMapping 0 0x10 1
+AdrvGetClgcStatus 0 1
+
+
+
+
+CH1 OPD
+write_fpgareg 0x5c 1
+AdrvSetTxToOrxMapping 0 0x10 2
+AdrvGetClgcStatus 0 2
+
+
+CH1 RPD
+write_fpgareg 0x5c 5
+AdrvSetTxToOrxMapping 0 0x10 2
+AdrvGetClgcStatus 0 2
+
+
+
+AdrvInitCalsRun 0 0x200000 1
+AdrvInitCalsRun 0 0x200000 2
+
+
+AdrvInitCalsRun 0 0x800 1
+AdrvInitCalsRun 0 0x800 2
+
+txtoorx
+
+Adrv902x_init 0
+
+
+
+
+
+
+
+
+bit0 RX校准使能
+bit1 FB校准是能
+bit2 TX QEC校准
+bit3 TX LOL校准
+bit4 DPD使能
+bit5 clgc使能
+
+ch1:
+出口 122.88 get_capturedata 4 0 1000 2048 ddc0_out_n28.txt
+入口 245.76 get_capturedata 4 1 1000 2048 ddc0_in_n28.txt
+
+ch2:
+出口 122.88 get_capturedata 5 0 1000 2048 ddc1_out_n28.txt
+入口 245.76 get_capturedata 5 1 1000 2048 ddc1_in_n28.txt

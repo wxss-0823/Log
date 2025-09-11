@@ -1,0 +1,311 @@
+BBU登录IP
+192.168.5.13
+
+文件传输
+scp R2C4-N1-M_R_FLASH_V1.00.021.txz root@192.168.201.10:/mnt/flash/upgrade
+scp EEPROM.sh root@192.168.201.10:/app
+
+scp ru_app root@192.168.201.10:/mnt/flash/patch/bin
+
+修改IP
+cd /etc/netplan/
+cat eth0.yaml
+vi eth0.yaml
+
+登录后在命令行敲
+ip a 
+若出现20条以上eth打印，则表示BBU启动完全
+
+
+登录web设置时钟同步
+192.168.5.216:8400
+
+
+phc_ctl sjptp0 set `date "+%s"`
+
+
+###################################################
+root@localhost:~# ll /opt/loads/cur
+lrwxrwxrwx 1 root root 88 Sep  6  2022 /opt/loads/cur -> /opt/loads/CMDI_5GNR_m.VPP_P1201_aa.fdd.fr1.2.2.3.Z2_987_v0.11.1_20241208_062133/rootfs//
+cat /proc/meminfo
+
+###################################################
+root@localhost:~# fw_printenv | grep baud
+baudrate=115200
+baudrate3=115200
+
+
+scp XXXX root@192.168.201.10:/app
+ssh 192.168.201.10
+cd /app
+cp XXXX /mnt/flash/upgrade
+hwb
+
+###################################################
+
+root@localhost:~# cat /opt/bbu/oam/cm/.devInfo.cfg
+SN=SNB123456789
+PrivateKeyPath=/opt/bbu/oam/cm/rsa_private_key.pem
+rootCertificatePath=/opt/bbu/oam/cm/rootCertificate.pem
+WAN_IF=eth1|Ng
+ProduceDate=2020-06-17T00:00:00Z
+ClientKey=/opt/bbu/oam/cm/cacert.pem
+ClientCert=/opt/bbu/oam/cm/clientkey.pem
+ClientRootCert=/opt/bbu/oam/cm/clientcert.pem
+MACADDR_ETH0=0x8C 0xE4 0x68 0x00 0x00 0x01
+MACADDR_ETH1=0x8C 0xE4 0x68 0x80 0x00 0x00
+MACADDR_PTP0=0x8C 0xE4 0x68 0x15 0x88 0x01
+MACADDR_PTP1=0x8C 0xE4 0x68 0x15 0x88 0x02
+MACADDR_PTP2=0x8C 0xE4 0x68 0x15 0x88 0x03
+MACADDR_PTP3=0x8C 0xE4 0x68 0x15 0x88 0x04
+MACADDR_QEP0=0x8C 0xE4 0x68 0x80 0x00 0x02
+MACADDR_QEP1=0x8C 0xE4 0x68 0x80 0x00 0x03
+MACADDR_QEP2=0x8C 0xE4 0x68 0x80 0x00 0x04
+MACADDR_QEP3=0x8C 0xE4 0x68 0x80 0x00 0x05
+MACADDR_QEP4=0x8C 0xE4 0x68 0x80 0x00 0x06
+MACADDR_QEP5=0x8C 0xE4 0x68 0x80 0x00 0x07
+RRU_MAC0=0x24 0x6E 0x96 0x8F 0x26 0xFC
+RRU_MAC1=0x24 0x6E 0x96 0x8F 0x26 0xFD
+RRU_MAC2=0x24 0x6E 0x96 0x8F 0x26 0xFE
+RRU_MAC3=0x24 0x6E 0x96 0x8F 0x26 0xFF
+ENABLE_EU_PROTOCAL=ENABLE_IR_XGBB_DUAL_MODE_PROTOCAL
+EU_CONNECTTYPE=2
+###################################################
+
+root@localhost:~# cat /opt/bbu/oam/cm/protStackCfg.sh | grep EnableVpp
+EnableVpp=0
+
+###################################################
+
+
+
+
+cd /opt/fdd_l1d/ASTELLA_PHY_Package_LA1224RDB_BSP2.1_VSPA_DUMode_MUMode_u0_3cc_OranRach_v0.1.3/bin/
+ln -snf /opt/loads/cur/phy/bs_bbu_main bs_bbu_main
+ln -snf /opt/bbu/oam/cm/phyconfig.txt phyconfig.txt
+cp /etc/machines.dat  /opt/fdd_l1d/ASTELLA_PHY_Package_LA1224RDB_BSP2.1_VSPA_DUMode_MUMode_u0_3cc_OranRach_v0.1.3/bin/
+
+
+
+
+需要ebable=0
+
+
+5G频率配置 
+【Bw40M】
+//B TX:2130MHz RX:1940MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 426000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 388000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 40
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 40
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 422910
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 46
+
+//M TX:2137.5MHz RX:1947.5MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 427500
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 389500
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 40
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 40
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 424590
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 46
+
+//T TX:2145MHz RX:1955MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 429000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 391000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 40
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 40
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 426030
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 46
+
+【Bw30M】
+//B TX:2125MHz RX:1935MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 425000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 387000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 422930
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 46
+
+//M TX:2137.5MHz RX:1947.5MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 427500
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 389500
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 425550
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 46
+
+//T TX:2150MHz RX:1960MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 430000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 392000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 30
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 427930
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 46
+
+【Bw20M】
+//B TX:2120MHz RX:1930MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 424000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 386000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 422890
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 46
+
+//M TX:2137.5MHz RX:1947.5MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 427500
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 389500
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 426510
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 46
+
+//T TX:2155MHz RX:1965MHz
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNDL 431000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.NRARFCNUL 393000
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.DLBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.RF.ULBandwidth 20
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.PHY.RfConfig.FrequencyInfoDl.AbsoluteFrequencySSB 479890
+odi -n oamProcess setcf Device.Services.FAPService.1.CellConfig.1.NR.RAN.MaxTxPower 46
+
+
+
+
+所有测试开始之前需要进行前置操作
+############第一步：
+新开一个窗口
+sp.sh -k
+sp.sh -L1D
+
+大于60可以进行下一步
+ps -eo comm,etimes|grep oamProcess|awk '{print$2}'
+
+等待下列打印后，可以重新开始起物理层和L1D
+addr=0x00000039 ok
+value=0x0000004a 
+
+
+5G测试
+############第二步：
+新开一个窗口
+
+cd /opt/fdd_l1d/ASTELLA_PHY_Package_LA1224RDB_BSP2.1_VSPA_DUMode_MUMode_u0_3cc_OranRach_v0.1.3/bin
+./start_bbu.sh
+直到开始打印PHY process wait 10s ,MAC process not ready 时，可以进行下一步
+
+*该窗口下之后配置ctrl +c 即为停物理层，正常步骤，不需要停物理层*
+
+############第三步：
+新开一个窗口
+cd /opt/fdd_l1d/ASTELLA_PHY_Package_LA1224RDB_BSP2.1_VSPA_DUMode_MUMode_u0_3cc_OranRach_v0.1.3/support/NR_L1D_FAPI3.2
+
+根据需要，只能选择其中一个用例执行：
+【Bw30M 20M 10M下行测试】
+./start_l1d_demoBS_cell0.sh TM3.1a_FDD_15K_Bw30M
+./start_l1d_demoBS_cell0.sh TM3.1a_FDD_15K_Bw10M
+./start_l1d_demoBS_cell0.sh TM3.1a_FDD_15K_Bw20M
+【Bw30M 20M 10M 上行灵敏度测试】
+./start_l1d_demoBS_cell0.sh A1-4_FDD_Bw30M
+./start_l1d_demoBS_cell0.sh A1-4_FDD_Bw20M
+./start_l1d_demoBS_cell0.sh A1-4_FDD_Bw10M
+【Bw30M 上行高阶测试】
+./start_l1d_demoBS_cell0.sh UL256qam_FDD_Bw30M
+./start_l1d_demoBS_cell0.sh UL256qam_FDD_Bw20M
+./start_l1d_demoBS_cell0.sh UL256qam_FDD_Bw10M
+
+执行完毕后，等待该窗口打印SendStartReq: PHY is running 表示配置完成
+
+若是选择上行用例，执行完毕后，再在此窗口敲击crcon 查看上行解调结果
+
+
+*该窗口下之后配置ctrl +c 之后quit 即为停L1D，正常步骤，不需要停L1D*
+
+
+############第四步：
+如何更换测试用例说明：
+在同一频点带宽配置下时，切换下行、上行灵敏度、上行高阶用例时，只需要先停物理层，之后再停L1D，之后依序重新配置物理层和重拉 L1D
+即停掉第二步和第三步窗口中的物理层和L1D，之后重新执行第二部和第三部。
+
+切换不同频点和不同带宽用例时，需要在停物理层和L1D后，再停协议栈重新拉OAM
+即停掉第二步和第三步窗口中的物理层和L1D，之后重新执行第一步、第二步、和第三步。
+
+fpga32 wr 2104 0   5G通道复制
+
+
+#################################################################################
+
+4G配置
+
+
+4G频率配置
+在 5G 界面操作输入下面 3 条指令（按顺序执行）
+odi -n oamProcess cfgantenna 1 5 2 0xfff3 0xfff3
+odi -n oamProcess cfgltecell 1 2 48 3610 10
+odi -n oamProcess cfgltecell 1 0 48 3610 10
+
+
+
+
+新开一个窗口
+进入 B4 界面后输入 
+tail /var/log/boot   以前的配置
+
+tail /var/log/boot_bak   新BBU
+
+
+下行测试
+新开一个窗口
+cd /appfs/bbu/pkg/qdsphy_v0/
+./startall.sh fdd_ETM3d1_10M 192.168.15.1
+等待执行完毕后
+./testloop.sh 0 fdd_ETM3d1_10M
+
+
+停止测试按 Ctrl+z 即可
+需要更改用例执行 Ctrl+z 后，
+执行指令 ./testloop.sh 0 fdd_A13_rboffset00 即可变更用例
+
+
+
+上行测试需要单独开一个窗口查看解调
+cd /appfs/bbu/pkg/qdsphy_v0/
+./tb_ulStatPusch.sh 5 0
+
+
+
+fpga32 wr 2104 0
+fpga32 wr 2320 0
+
+
+
+
+读取4G功率
+5G板界面
+fpga32 wr 10b 0
+fpga32 wr 10d 100
+fpga32 wr 10c 0
+fpga32 wr 10c 1
+fpga32 wr 10c 0
+fpga32 rd 188 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-#################
+	#################
 ²âÊÔÇ°ÖÃ²Ù×÷
 cli AdrvSetTxRadioCtrlCfg 0 1 1
 cli AdrvSetTxRadioCtrlCfg 0 2 1
