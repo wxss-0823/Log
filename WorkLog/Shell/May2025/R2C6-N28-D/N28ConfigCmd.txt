@@ -1,6 +1,7 @@
 ir_kill
 
 #内部源指令（目前为30M指令，需要更新成10M指令）
+set_testsource /mnt/flash/patch/metadata/NR10M_FDD_tm31a_15k_fs122p88_2.SH
 write_fpgareg 0xda4 0
 write_fpgareg 0xda5 0
 write_fpgareg 0xd80 9
@@ -30,6 +31,31 @@ write_fpgareg 0x114 2
 write_fpgareg 0x110 0x20
 
 cat trace.log |grep "rx_current"
+
+###########################################
+703 748
+758 803
+
+763
+773
+783
+793
+
+查看驻波，隔离度（10M配置）
+set_power_control_enable 0
+carr_inactivate 0
+carr_inactivate 1
+carr_cfg 0 0 3 10 0 763 743 44.2 140 140
+carr_cfg 1 0 3 10 0 763 743 44.2 140 140
+carr_activate 0
+carr_activate 1
+
+AdrvSetClgcEnable 0 1 0
+AdrvSetClgcEnable 0 2 0
+AdrvSetTrackCalsEnable 0 0x300000 1
+
+
+
 ###########################################
 查看驻波，隔离度（30M配置）
 set_power_control_enable 0
@@ -93,3 +119,12 @@ AdrvSetTxToOrxMapping 0 0x10 2
 AdrvGetClgcStatus 0 2
 
 如果隔离度异常，整机内部连线异常，或者数字板隔离度异常。
+
+
+16000
+
+4500
+
+
+
+/mnt/flash/patch/metadata
