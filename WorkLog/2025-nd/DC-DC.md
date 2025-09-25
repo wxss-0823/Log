@@ -76,6 +76,8 @@ $$
 
 ### 3.4. 纹波
 
+#### 3.4.1. 容感值约束
+
 ​	以 Boost 电路为例，流过二极管的电流 $i_D$ 是一个周期为 T ，占空比为 $(1-D)$ 方波，其等效直流为 $(1-D)I_L$  。为了关注纹波特性，聚焦于右侧部分电路如下。
 
 ![DC-DC Ripple Circuit](./Assets/DC-DC_RippleCircuit.png)
@@ -84,27 +86,77 @@ $$
 
 ​	事实上，实际的输出电压除去等效直流作用于负载电阻的部分，还有一部分交流电流分量作用于电容产生的纹波电压。当交流分量小于 0 时，电容电压线性降低；当交流分量大于 0 时，电容电压线性增加。这就是输出纹波产生的原因。设纹波电压的峰峰值为 $\Delta V_{c, pp}$ ，则有：
 $$
-\Delta V_{c,pp} &=& 1/C \cdot \int_{DT}^{T} i_{C}\ dt \\
-&=&1/C \cdot DI_L(1-D)T \\
-C &\ge& \frac{DI_L(1-D)T}{\Delta V_{c,pp}}
+\begin{align*}
+\Delta v_{C,pp} &= 1/C \cdot \int_{DT}^{T} i_{C}\ dt \\
+&= 1/C \cdot DI_L(1-D)T \\
+C &\ge \frac{DI_L(1-D)T}{\Delta v_{C,pp}}
+\end{align*}
 $$
-​	通过上式，可以设定能够满足纹波条件的电容值。
+​	通过上式，可以设定能够满足纹波条件的电容值。类似地，也可以得到约束电感电流纹波的表达式：
+$$
+\begin{align*}
+\Delta i_{L,pp} &= 1/L \cdot \int_{0}^{DT} v_{L}\ dt \\
+&=1/L \cdot DV_L(1-D)T \\
+L &\ge \frac{DV_L(1-D)T}{\Delta i_{L,pp}}
+\end{align*}
+$$
+​	需要注意的是，在计算电容纹波的等效过程中，忽略了电流中的纹波，这种近似并不影响结果。考虑了电流纹波的等效结果并不会影响峰峰值的大小，只是纹波曲线斜率会随电流纹波变化，不再是一个固定的值。
+
+#### 3.4.2. 纹波比
+
+​	通常使用比率表示纹波相对于直流量的大小，如下：
+$$
+Ripple\ Ratio\ \mathcal{R}_{x} \triangleq  \frac{\Delta x_{pp}/2}{\mathcal{X}}
+$$
+​	对于 Boost 电路而言，电感电流的纹波峰峰值 $\Delta i_{L,pp} = \frac{V_1DT}{L}$ ，直流分量 $I_1 = \frac{V_2}{R(1-D)}$ ，代入纹波比表达式，可得：
+$$
+\begin{align*}
+\mathcal{R}_L &= \frac{\Delta i_{L,pp}}{2I_1} \\
+&= \frac{V_1DTR(1-D)}{2LV_2} \\
+&=\frac{D(1-D)^2TR}{2L}
+\end{align*}
+$$
+​	由此，当负载电阻增加，或电感减小时，纹波比会上升。值得注意的是，负载电阻增加意味着输出直流电流的减小，纹波绝对值未变化，当电阻过大时，会导致二极管截止；电感减小意味着直流纹波的增加，纹波绝对值增加，当电感过小时，也会产生二极管的截止。这种工作模式称为不连续导通模式（Discontinuous Conduction Mode，DCM），意味着存在某种情况下开关和二极管均关闭的状态。
+
+​	当纹波比恰好为 1 时，此时刚好位于不发生 DCM 的临界值，即当 $\mathcal{R}_L > 1$ 时，会工作在 DCM 模式。这可以部分限定 R 与 L 的取值范围。
 
 
 
 
 
-LDO
+
+
+#### 3.4.3. 能量
+
+​	通常，容感器件在工作期间所需要容纳的能量峰值与其物理尺寸呈现正相关。因此，在设计电路时，往往需要考虑器件所需要承载的能量大小。
+
+​	由上文可知，类似地定义电容电感纹波率如下：
+$$
+\mathcal{R}_{C} = \frac{\Delta v_{C,pp}/2}{\mathcal{V}_C} \\
+\mathcal{R}_{L} = \frac{\Delta i_{L,pp}/2}{\mathcal{I}_L}
+$$
+​	代入电容约束表达式中：
+$$
+\begin{align*}
+C &\ge \frac{D(1-D)I_1T}{\Delta v_{C,pp}} \\
+&\ge \frac{D(1-D)I_1T}{2V_2\mathcal{R}_C}
+\end{align*}
+$$
+​	电容存储的能量 E 为 ：$E = 1/2 \cdot CU^2$ ，代入电容约束表达式：
+$$
+\begin{align*}
+E_C &= 1/2 \cdot CV_{pk}^2 \\
+&= 1/2 \cdot \frac{D(1-D)I_1T}{2V_2\mathcal{R}_C} \cdot (V_2(1+\mathcal{R_C}))^2 \\
+&= \frac{DP_{out}}{4f_{sw}} \cdot \frac{(1+\mathcal{R}_C)^2}{\mathcal{R}_C}
+\end{align*}
+$$
+​	由该表达式，可以粗略的估计所需电容的尺寸的价格。电感类似。
 
 
 
 
 
-
-
-
-
-
+ 
 
 
 
