@@ -2,3 +2,5 @@ tftp [ip] -gr [file]
 tftp [ip] -pr [file]
 
 dow file
+
+eth0_ip xxx

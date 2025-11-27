@@ -35,24 +35,31 @@ cat trace.log |grep "rx_current"
 ###########################################
 703 748
 758 803
+-3dB  48.5
 
-763
-773
-783
-793
+
+763 46.3 0.8
+773 45.9 0.4
+783 45.7 0.2
+793 45.5 
+
+
+763 46.2 0.7
+773 45.9 0.4
+783 45.6 0.1
+793 45.4 -0.1 
+
 
 查看驻波，隔离度（10M配置）
 set_power_control_enable 0
 carr_inactivate 0
 carr_inactivate 1
-carr_cfg 0 0 3 10 0 763 743 44.2 140 140
-carr_cfg 1 0 3 10 0 763 743 44.2 140 140
+carr_cfg 0 0 3 10 0 793 743 44.2 140 140
+carr_cfg 1 0 3 10 0 793 743 44.2 140 140
 carr_activate 0
 carr_activate 1
+set_power_control_enable 1
 
-AdrvSetClgcEnable 0 1 0
-AdrvSetClgcEnable 0 2 0
-AdrvSetTrackCalsEnable 0 0x300000 1
 
 
 
@@ -128,3 +135,6 @@ AdrvGetClgcStatus 0 2
 
 
 /mnt/flash/patch/metadata
+
+
+

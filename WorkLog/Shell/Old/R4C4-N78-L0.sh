@@ -13,7 +13,7 @@ dos2unix R4C4-N78-L0-eeprom.sh
 chmod 777 R4C4-N78-L0-eeprom.sh
 ./R4C4-N78-L0-eeprom.sh
 
-# Íø·Ö²âÊÔ
+# ç½‘åˆ†æµ‹è¯•
 
 write_fpgareg 0x25 0
 write_fpgareg 0x26 0
@@ -24,7 +24,7 @@ write_fpgareg 0x29 0
 
 AdrvSetRxTxEnable 0 0x5f 0xf
 
-# 1 ÏÂĞĞ 2 ÉÏĞĞ
+# 1 ä¸‹è¡Œ 2 ä¸Šè¡Œ
 set_pa_mode 0 0 1
 set_pa_mode 0 1 1
 set_pa_mode 0 2 1
@@ -36,8 +36,8 @@ set_pa_mode 0 2 2
 set_pa_mode 0 3 2
 
 
-# ÆµÆ×²âÊÔ
-# Í¨µÀ 0 ÅäÖÃ
+# é¢‘è°±æµ‹è¯•
+# é€šé“ 0 é…ç½®
 set_power_control_enable 0
 carr_inactivate 0
 carr_inactivate 1
@@ -58,7 +58,7 @@ AdrvSetTxTestTone 0 1 1 -50 0
 AdrvSetTxTestTone 0 1 1 1 0
 AdrvSetTxTestTone 0 1 1 50 0
 
-# Í¨µÀ 1 ÅäÖÃ
+# é€šé“ 1 é…ç½®
 set_power_control_enable 0
 carr_inactivate 0
 carr_inactivate 1
@@ -79,7 +79,7 @@ AdrvSetTxTestTone 0 2 1 -50 0
 AdrvSetTxTestTone 0 2 1 1 0
 AdrvSetTxTestTone 0 2 1 50 0
 
-# Í¨µÀ 2 ÅäÖÃ
+# é€šé“ 2 é…ç½®
 set_power_control_enable 0
 carr_inactivate 0
 carr_inactivate 1
@@ -100,7 +100,7 @@ AdrvSetTxTestTone 0 4 1 -50 0
 AdrvSetTxTestTone 0 4 1 1 0
 AdrvSetTxTestTone 0 4 1 50 0
 
-# Í¨µÀ 3 ÅäÖÃ
+# é€šé“ 3 é…ç½®
 set_power_control_enable 0
 carr_inactivate 0
 carr_inactivate 1
@@ -122,7 +122,7 @@ AdrvSetTxTestTone 0 8 1 1 0
 AdrvSetTxTestTone 0 8 1 50 0
 
 
-# ĞÅºÅÔ´²âÊÔ
+# ä¿¡å·æºæµ‹è¯•
 set_power_control_enable 0
 carr_inactivate 0
 carr_inactivate 1
@@ -159,14 +159,14 @@ AdrvGetRxDecPower 0 0x40
 
 
 
-tx att 10 dig -18dbfs  -7.5dbm Õı¸º0.5
+tx att 10 dig -18dbfs  -7.5dbm æ­£è´Ÿ0.5
 
 
-# µÚÒ»¸ö²ÎÊı¹Ì¶¨ 0
-# µÚ¶ş¸ö²ÎÊıÎªÍ¨µÀ 1248 ±íÊ¾ 4 ¸öÍ¨µÀ
-# µÚÈı¸ö²ÎÊıÎªÊ¹ÄÜ 1 Ê¹ÄÜ 0 ¹Ø±Õ
-# µÚËÄ¸ö²ÎÊıÎªÆ«ÒÆÅäÖÃÆµµã£¬Ò»°ã 1M
-# µÚÎå¸ö²ÎÊı±íÊ¾·¢Éäµ¥Òô¹¦ÂÊ 0 ±íÊ¾ -18 dbfs delta = 6 db
+# ç¬¬ä¸€ä¸ªå‚æ•°å›ºå®š 0
+# ç¬¬äºŒä¸ªå‚æ•°ä¸ºé€šé“ 1248 è¡¨ç¤º 4 ä¸ªé€šé“
+# ç¬¬ä¸‰ä¸ªå‚æ•°ä¸ºä½¿èƒ½ 1 ä½¿èƒ½ 0 å…³é—­
+# ç¬¬å››ä¸ªå‚æ•°ä¸ºåç§»é…ç½®é¢‘ç‚¹ï¼Œä¸€èˆ¬ 1M
+# ç¬¬äº”ä¸ªå‚æ•°è¡¨ç¤ºå‘å°„å•éŸ³åŠŸç‡ 0 è¡¨ç¤º -18 dbfs delta = 6 db
 
-# Êä³ö±¨´íĞÅÏ¢
+# è¾“å‡ºæŠ¥é”™ä¿¡æ¯
 std_print_here
