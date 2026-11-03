@@ -1,0 +1,100 @@
+          "cmd_send": "0x1000",
+          "description": "初始化设备",
+          "response": "返回0x50"
+        },
+        {
+          "name": "移动到指定容值",
+          "cmd_send": "0x2000",
+          "description": "移动至指定电容值",
+          "send_data": {"电容值": {"长度": "2B 或 4B", "单位": "0.1pF或0.01pF"}},
+          "response": "返回0x50"
+        },
+        {
+          "name": "运动到指定整步步数位置",
+          "cmd_send": "0x2100",
+          "description": "运动到绝对整步位置",
+          "send_data": {"整步步数": {"长度": 2}},
+          "response": "返回0x50"
+        },
+        {
+          "name": "运动相对整步步数",
+          "cmd_send": "0x2200",
+          "description": "相对当前移动指定步数",
+          "send_data": {"整步步数": {"长度": 2}},
+          "response": "返回0x50"
+        },
+        {
+          "name": "运动电容到最小位置",
+          "cmd_send": "0x2300",
+          "description": "移动至电容最小位置",
+          "response": "返回0x50"
+        },
+        {
+          "name": "运动电容到最大位置",
+          "cmd_send": "0x2400",
+          "description": "移动至电容最大位置",
+          "response": "返回0x50"
+        },
+        {
+          "name": "运动到指定微步步数位置",
+          "cmd_send": "0x2500",
+          "description": "运动到绝对微步位置",
+          "send_data": {"微步步数": {"长度": 4}},
+          "response": "返回0x50"
+        },
+        {
+          "name": "运动相对微步步数",
+          "cmd_send": "0x2600",
+          "description": "相对当前移动指定微步数",
+          "send_data": {"微步步数": {"长度": 4, "说明": "有符号"}},
+          "response": "返回0x50"
+        },
+        {
+          "name": "运动到用户点位",
+          "cmd_send": "0x2700",
+          "description": "移动至用户预设点位",
+          "send_data": {"序号": {"长度": 1, "说明": "范围0-9"}},
+          "response": "返回0x50"
+        },
+        {
+          "name": "无限制运动到绝对整步位置",
+          "cmd_send": "0xA100",
+          "description": "扩展指令，无限制移动",
+          "send_data": {"整步位置": {"长度": 2}},
+          "response": "返回0x50"
+        },
+        {
+          "name": "无限制运动相对整步位置",
+          "cmd_send": "0xA200",
+          "description": "扩展指令，相对移动",
+          "send_data": {"整步位置": {"长度": 2}},
+          "response": "返回0x50"
+        },
+        {
+          "name": "运动到零点位置",
+          "cmd_send": "0xA300",
+          "description": "移动至零点",
+          "response": "返回0x50"
+        },
+        {
+          "name": "运动到最大位置 (已删除)",
+          "cmd_send": "0xA400",
+          "description": "已删除，不再使用"
+        },
+        {
+          "name": "电容脱困（增大）",
+          "cmd_send": "0xAA00",
+          "description": "暂未支持，8秒延迟",
+          "response": "返回0x50"
+        },
+        {
+          "name": "电容脱困（减小）",
+          "cmd_send": "0xAB00",
+          "description": "暂未支持，8秒延迟",
+          "response": "返回0x50"
+        },
+        {
+          "name": "同时设置容值、速度、加速度",
+          "cmd_send": "0xA500",
+          "description": "VVC1.0新增，掉电不保存，配套控制板3.0",
+          "send_data": [

@@ -1,0 +1,100 @@
+          "description": "设置硬件版本号",
+          "send_data": {"版本号": {"长度": 2, "说明": "ASCII，范围0A-9Z"}}
+        },
+        {
+          "name": "获取硬件版本",
+          "cmd_send": "0xA008",
+          "cmd_response": "0xA108",
+          "description": "获取硬件版本号",
+          "response_data": {"版本号": {"长度": 2, "说明": "ASCII"}}
+        },
+        {
+          "name": "设置VVC制造信息",
+          "cmd_send": "0xA009",
+          "description": "设置VVC制造信息，数据5字节",
+          "send_data": {"数据": {"长度": 5}}
+        },
+        {
+          "name": "获取VVC制造信息",
+          "cmd_send": "0xA00A",
+          "cmd_response": "0xA10A",
+          "description": "获取VVC制造信息，数据5字节"
+        },
+        {
+          "name": "设置电容母体温度",
+          "cmd_send": "0xA00B",
+          "description": "设置电容母体温度，实际温度补偿未生效",
+          "send_data": {"温度": {"长度": 1, "单位": "℃"}}
+        },
+        {
+          "name": "设置C曲线点数",
+          "cmd_send": "0xA00E",
+          "description": "设置C曲线点数范围0-4000",
+          "send_data": {"点数": {"长度": 2}}
+        },
+        {
+          "name": "获取C曲线点数",
+          "cmd_send": "0xA00F",
+          "cmd_response": "0xA10F",
+          "description": "获取C曲线点数",
+          "response_data": {"点数": {"长度": 3}}
+        },
+        {
+          "name": "获取电容行程次数",
+          "cmd_send": "0xA010",
+          "cmd_response": "0xA110",
+          "description": "获取指定行程范围（0-9）内的行程次数",
+          "send_data": {"行程范围序号": {"长度": 1, "说明": "0-9，对应10个范围"}},
+          "response_data": {"行程次数": {"长度": 4}}
+        },
+        {
+          "name": "获取Unique-ID",
+          "cmd_send": "0xA011",
+          "cmd_response": "0xA111",
+          "description": "获取设备唯一ID",
+          "response_data": {"UID": {"长度": 12}}
+        },
+        {
+          "name": "设置CRC校验码",
+          "cmd_send": "0xA012",
+          "description": "暂未使用",
+          "send_data": {"CRC": {"长度": 2}}
+        },
+        {
+          "name": "设置应用场景",
+          "cmd_send": "0xA020",
+          "description": "设置应用场景，0xA5为我司，0x00非我司",
+          "send_data": [
+            {"名称": "应用场景", "长度": 1},
+            {"名称": "CRC", "长度": 2}
+          ]
+        },
+        {
+          "name": "获取应用场景",
+          "cmd_send": "0xA021",
+          "cmd_response": "0xA121",
+          "description": "获取应用场景"
+        },
+        {
+          "name": "Reset",
+          "cmd_send": "0xA022",
+          "description": "保留功能，需应用场景0xA5"
+        },
+        {
+          "name": "Upgrade",
+          "cmd_send": "0xA023",
+          "description": "进入升级模式，保留功能"
+        },
+        {
+          "name": "更改配置表",
+          "cmd_send": "0xA024",
+          "description": "修改配置表，每次64字节",
+          "send_data": [
+            {"名称": "配置表编号", "长度": 1, "说明": "0-100"},
+            {"名称": "数据", "长度": 63}
+          ]
+        },
+        {
+          "name": "获取配置表",
+          "cmd_send": "0xA025",
+          "cmd_response": "0xA125",

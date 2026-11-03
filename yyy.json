@@ -1,0 +1,77 @@
+      "sheet_name": "公共命令",
+      "content": {
+        "description": "参考公共命令文档链接：https://dbox.sicarrier.com/detaildocs?oid=VR:wt.doc.WTDocument:200004183728"
+      }
+    },
+    {
+      "sheet_name": "VVC1.0参数配置表",
+      "content": {
+        "description": "VVC1.0参数配置表定义，包含寄存器配置及备注。"
+      }
+    },
+    {
+      "sheet_name": "VVC2.0参数配置表",
+      "content": {
+        "description": "VVC2.0参数配置表定义，包含寄存器配置及备注。"
+      }
+    },
+    {
+      "sheet_name": "1.0升级",
+      "content": [
+        {
+          "name": "获取软件版本",
+          "cmd_send": "0x4061",
+          "cmd_response": "0x4161",
+          "description": "获取软件版本（升级场景）"
+        },
+        {
+          "name": "获取Unique-ID",
+          "cmd_send": "0xA011",
+          "cmd_response": "0xA111",
+          "description": "获取唯一ID（升级场景）"
+        },
+        {
+          "name": "Upgrade",
+          "cmd_send": "0xA023",
+          "description": "进入升级模式"
+        },
+        {
+          "name": "UID获取",
+          "cmd_send": "0x80 0x11",
+          "description": "boot中获取UID"
+        },
+        {
+          "name": "key配置",
+          "cmd_send": "0x80 0x12",
+          "description": "配置key"
+        },
+        {
+          "name": "准备升级",
+          "cmd_send": "0x02 0x00",
+          "description": "准备升级"
+        },
+        {
+          "name": "升级长度配置",
+          "cmd_send": "0x02 0x03",
+          "description": "配置升级包长度"
+        },
+        {
+          "name": "开始数据传输",
+          "cmd_send": "0x02 0x01",
+          "description": "开始传输数据"
+        },
+        {
+          "name": "数据传输完成",
+          "cmd_send": "0x02 0x02",
+          "description": "数据传输完成"
+        }
+      ]
+    },
+    {
+      "sheet_name": "备注",
+      "content": {
+        "description": "包含加速度速度换算关系、VVC2.0倍率说明等。"
+      }
+    }
+  ]
+}

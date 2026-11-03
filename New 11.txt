@@ -1,0 +1,100 @@
+          "description": "获取配置表数据"
+        },
+        {
+          "name": "获取日志 (已废弃)",
+          "cmd_send": "0xA026",
+          "description": "已废弃"
+        },
+        {
+          "name": "RTC对时消息",
+          "cmd_send": "0xA027",
+          "description": "设置RTC时间",
+          "send_data": {"日期信息": {"长度": 12, "说明": "格式：年(2B)月日周时分秒微秒"}}
+        },
+        {
+          "name": "设置失步告警阈值",
+          "cmd_send": "0xA028",
+          "description": "设置失步告警阈值",
+          "send_data": {"阈值": {"长度": 4, "单位": "微步"}}
+        },
+        {
+          "name": "查询失步告警阈值",
+          "cmd_send": "0xA029",
+          "cmd_response": "0xA129",
+          "description": "查询失步告警阈值"
+        },
+        {
+          "name": "正反曲线查询",
+          "cmd_send": "0xA030",
+          "cmd_response": "0xA130",
+          "description": "查询C曲线正向反向容值",
+          "send_data": {"编号": {"长度": 2}},
+          "response_data": [
+            {"名称": "编号", "长度": 2},
+            {"名称": "步数", "长度": 2},
+            {"名称": "正向容值", "长度": "2B 或 4B"},
+            {"名称": "反向容值", "长度": "2B 或 4B"}
+          ]
+        },
+        {
+          "name": "获取螺杆圈数",
+          "cmd_send": "0xA031",
+          "cmd_response": "0xA131",
+          "description": "获取螺杆圈数，uint8"
+        },
+        {
+          "name": "获取波纹管寿命评估拟合参数",
+          "cmd_send": "0xA032",
+          "cmd_response": "0xA132",
+          "description": "获取拟合系数k,b"
+        },
+        {
+          "name": "设置波纹管寿命评估拟合参数",
+          "cmd_send": "0xA033",
+          "description": "设置拟合系数k,b"
+        },
+        {
+          "name": "更改映射表",
+          "cmd_send": "0xA02A",
+          "description": "设置配置表和制造信息映射关系",
+          "send_data": [
+            {"名称": "映射表编号", "长度": 1, "说明": "0~99"},
+            {"名称": "数据", "长度": 6, "说明": "1B配置表编号+5B制造信息"}
+          ]
+        },
+        {
+          "name": "获取映射表",
+          "cmd_send": "0xA02B",
+          "cmd_response": "0xA12B",
+          "description": "获取映射表数据"
+        },
+        {
+          "name": "VVC初始状态重置",
+          "cmd_send": "0xA02C",
+          "description": "恢复默认初始状态（速度、加速度、preset位置）"
+        },
+        {
+          "name": "设置电压检测门限",
+          "cmd_send": "0xA02D",
+          "description": "设置24V、5V、3.3V电压检测门限（百分比）",
+          "send_data": [
+            {"名称": "24V检测门限", "长度": 4, "单位": "%"},
+            {"名称": "5V检测门限", "长度": 4, "单位": "%"},
+            {"名称": "3.3V检测门限", "长度": 4, "单位": "%"}
+          ]
+        },
+        {
+          "name": "查询电压检测门限",
+          "cmd_send": "0xA02E",
+          "cmd_response": "0xA12E",
+          "description": "查询电压检测门限"
+        }
+      ]
+    },
+    {
+      "sheet_name": "制造信息",
+      "content": {
+        "description": "制造信息字段定义，详见文档，包含物理最大转速等配置。"
+      }
+    },
+    {
